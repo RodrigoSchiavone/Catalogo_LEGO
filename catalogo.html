@@ -35,10 +35,12 @@
             commaSeparated = commaSeparated.replace(/,/g, ".");
             commaSeparated = commaSeparated.replace(/;/g, ",");
             commaSeparated = commaSeparated.replace(/\r\n/g, ",");
+            commaSeparated = commaSeparated.replace(/\n/g, ",");
             let csvDataArray = commaSeparated.split(",");
             csvDataArray.pop();
 
             csvArray = csvDataArray;
+            console.log(csvArray)
 
             arrayObjects(csvArray);
         }
@@ -101,16 +103,9 @@
 
         }
 
-
-
-
-
-
-
         return lines;
 
     }
-
 
 
     function arrayObjects(csvArray) {
@@ -248,7 +243,7 @@
 
                 if (positionCounter <= 5) {
                     img = { ...images[positionCounter] };
-                    img.path = `//img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
+                    img.path = `https://img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
                     image = img;
 
                     opt = opts[positionCounter];
@@ -335,7 +330,8 @@
 
         let lego = products;
         let imageLine = {
-            path: '/images/' + lego.line + '.png',
+            
+            path: 'images/' + lego.line + '.png',
             x: 0,
             y: 0,
             h: '100%',
