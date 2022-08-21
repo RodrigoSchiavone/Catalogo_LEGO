@@ -1,0 +1,22 @@
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .input {
+        border: 2px solid black;
+        display: block;
+        margin: 0 auto;
+    }
+
+    canvas{
+        border: 2px solid green;
+        display: block;
+        align-self:;
+
+        margin: 0 auto;
+    }
