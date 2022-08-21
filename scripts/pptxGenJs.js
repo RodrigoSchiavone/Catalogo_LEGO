@@ -1,5 +1,5 @@
-import {pptxgen} from "../node_modules/pptxgenjs";
 
+  import pptxgen from "pptxgenjs";
 
 function addNewProduct(slide, lego, slidecounter, pptx) {
     slide[slidecounter].addImage(lego.image);
@@ -52,7 +52,7 @@ function addLateralImage(slide, slidecounter, products) {
 
 
 export function generate(products, lines) {
-   
+  
     let pptx = new pptxgen();
     pptx.defineLayout({ name: 'A3', width: 10.83, height: 7.5 })
     pptx.layout = 'A3'
