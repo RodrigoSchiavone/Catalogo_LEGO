@@ -1,5 +1,5 @@
 
-  import pptxgen from "pptxgenjs";
+  import pptxgen from "./node_modules/pptxgenjs/dist/pptxgen.min.js";
 
 function addNewProduct(slide, lego, slidecounter, pptx) {
     slide[slidecounter].addImage(lego.image);

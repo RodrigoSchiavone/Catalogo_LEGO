@@ -1,4 +1,4 @@
-//import { generate } from "./pptxGenJs.js";
+import { generate } from "./pptxGenJs.js";
 function lineObject(line, quantity, slidesNumber) {
     let lineObject = {};
 
@@ -236,7 +236,7 @@ export function arrayObjects(csvArray) {
 
     console.log(products)
 
-    //generate(products, lines);
+    generate(products, lines);
 
 
 
