@@ -8,18 +8,26 @@
     }
 
     #container{
-        background-color: azure;
+        background-color:white;
+        border-radius:10%;
+        max-width: 50%;
     }
     #text_input{
         background-color: white;
-    }
+        
+        border-radius: 10%;
+        position:relative;
+        max-width: 95%;
+        left:2.5%
+        }
     input {
-        display:none;   
+           
         width: 100%;
     }
 
     #input{
-        background-color: aqua;
+        background-color: white;
+        border-radius: 10%;
 
 
     }
