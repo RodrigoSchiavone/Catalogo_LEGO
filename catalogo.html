@@ -7,7 +7,7 @@
     <title>CATALOGO</title>
     
 </head>
-<script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
 
 <body>
     <div id="container">
@@ -17,11 +17,14 @@
         <p>codigo, nome, linha do roduto, "new" ou "old" e o preço</p>
 
     <div id="input">
-        <label for="input" id="csv_file">arquivo</label>
+        <label for="input" id="file">arquivo</label>
         <input id="csv_file" type="file" class="custom-file-input" name="csv_file" accept=".csv">
     </div>
 </div>
 </div>
+
+    
+</body>
 
 <script>
     //<script type ="module" src="scripts/fileReader.js">
@@ -37,7 +40,7 @@
 
         reader.onload = function () {
             let commaSeparated = reader.result;
-
+console.log('to aqui')
 
 
             commaSeparated = commaSeparated.replace(/,/g, ".");
@@ -458,7 +461,4 @@
 
 
 </script>
-    
-</body>
-
 </html>
