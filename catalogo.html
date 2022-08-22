@@ -3,17 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css\index.css">
+    <link rel="stylesheet" href="css\style.css">
     <title>CATALOGO</title>
     
 </head>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
 
 <body>
+    <div id="container">
+    <div id="text_input">
+        <h1>Insira sua planilha</h1>
+        <h2>Seuarquivo deve ter:</h2>
+        <p>codigo, nome, linha do roduto, "new" ou "old" e o preço</p>
+
     <div id="input">
+        <label for="input" id="csv_file">arquivo</label>
         <input id="csv_file" type="file" class="custom-file-input" name="csv_file" accept=".csv">
     </div>
-    <canvas id="loading-bar"></canvas>
+</div>
+</div>
+   
     <script type ="module" src="scripts/fileReader.js"></script>
     
 </body>

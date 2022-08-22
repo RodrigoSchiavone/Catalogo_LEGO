@@ -7,12 +7,22 @@
 
     }
 
-    .input {
-        border: 2px solid black;
-        display: block;
-        margin: 0 auto;
+    #container{
+        background-color: azure;
+    }
+    #text_input{
+        background-color: white;
+    }
+    input {
+        display:none;   
+        width: 100%;
     }
 
+    #input{
+        background-color: aqua;
+
+
+    }
     canvas{
         border: 2px solid green;
         display: block;
