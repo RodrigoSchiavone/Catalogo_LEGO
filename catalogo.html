@@ -10,25 +10,33 @@
 <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
 
 <body>
-    <div id="container">
-    <div id="text_input">
-        <h1>Insira sua planilha</h1>
-        <h2>Seuarquivo deve ter:</h2>
-        <p>codigo, nome, linha do roduto, "new" ou "old" e o preço</p>
-
-    <div id="input">
-        <label for="input" id="file">arquivo</label>
-        <input id="csv_file" type="file" class="custom-file-input" name="csv_file" accept=".csv">
-    </div>
-</div>
-</div>
-
+    <h2>Gerador de catalogos LEGO</h2>
+    <p class="lead">Apenas  <b>Arquivos .CSV</b></p>
     
-</body>
-
+    <!-- Upload  -->
+    <form action="" id="file-upload-form" class="uploader">
+        
+      <input id="fileUpload" type="file"  name="fileUpload" accept=".csv">
+    
+      <label for="fileUpload" id="file-drag">
+        
+        <div id="start">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <div>Selecione um arquivo aqui</div>
+          
+          <span id="file-upload-btn" class="btn btn-primary">Selecione</span>
+        </div>
+        <div id="response" class="hidden">
+          <div id="messages"></div>
+         
+        </div>
+      </label>
+    </form>
+    
 <script>
-    //<script type ="module" src="scripts/fileReader.js">
-    const input = document.querySelector('#csv_file');
+    //<script type ="module" src="scripts/fileReader.js">,
+        
+    const input = document.querySelector('#fileUpload');
     let csvArray
     let test = false;
 
