@@ -1,6 +1,6 @@
 import { arrayObjects } from "./dataOrganizer.js";
 
-const input = document.querySelector('#csv_file');
+const input = document.querySelector('#fileUpload');
     let csvArray
     let test = false;
 
