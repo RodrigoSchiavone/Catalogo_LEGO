@@ -7,7 +7,7 @@
     <title>CATALOGO</title>
 
 </head>
-<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
+
 
 <body>
     <h2>Gerador de catalogos LEGO</h2>
@@ -32,7 +32,7 @@
             </div>
         </label>
     </form>
-
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
     <script>
         //<script type ="module" src="scripts/fileReader.js">,
 
@@ -146,38 +146,38 @@
                 x: 3,
                 y: 0.6,
 
-                sizing: { h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
             }, {
                 path: '',
                 x: 3,
                 y: 4.2,
 
-                sizing: {  h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
             }, {
                 path: '',
                 x: 5.5,
                 y: 0.6,
 
-                sizing: {  h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
             }, {
                 path: '',
                 x: 5.5,
                 y: 4.2,
 
-                sizing: { h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
 
             }, {
                 path: '',
                 x: 8,
                 y: 0.6,
 
-                sizing: {  h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
             }, {
                 path: '',
                 x: 8,
                 y: 4.2,
 
-                sizing: {  h: 0, w: 0 }
+                sizing: {type:"contain", h: "25%", w: "25%" }
 
             },];
 
@@ -322,79 +322,12 @@
             };
 
 
-
-            console.log(products)
-
-
-
-            function getWidthHeight(url,i,item){
-            var img = new Image();
-                    img.src = url;
-
-                    img.onload = function () {
-                        console.log("-------------------")
-                        console.log(this.height)
-                        console.log(this.width)
-                    item.image.sizing.h = this.height
-                    item.image.sizing.w = this.width
-                  
-                    console.log(this.height)
-                        console.log(this.width)
-
-                        
-                   /* let height = 0;
-                    let width = 0;
-
-                    if (naturalHeight >= naturalWidth){
-                        height = 2;
-                        width = (2*naturalWidth)/naturalHeight
-
-                    }else{
-                        height = (2.44 * naturalHeight)/naturalWidth
-                        width = 2.44
-                      
-                    }*/
-                    
-
-                  
-                    console.log(i)
-                    console.log(item)
-                
-                    console.log(this.height)
-                    console.log(this.width)
-                    
-
-
-                    products[i] = item;
-                    
-                    i = i+1;
-                    console.log(i)
-                    console.log("-------------------")
-                    imageSizing(products,i)
-                    }
-                }
-
-            function imageSizing(products,i){
-                let item = products[i]
-
-                if(i < products.length){
-                    getWidthHeight(item.image.path,i,item)
-                    console.log("index = "+ i)
-                }else{
-                    
-                    console.log(products)
-                   //generate(products,lines)
-                }
-
-            }    
             let i = 0;
-            imageSizing(products,i)
-           
+            
+            let sizes = []
+            generate(products,lines)
 
-           
-
-           
-            //generate(products, lines);
+            imageSizing(products, i,sizes)
 
         }
 
@@ -402,9 +335,76 @@
 
 
 
+        function getWidthHeight(url,sizes,i,products) {
+          
+                var img = new Image();
+                img.src = url;
+                let size = [];
+               
+
+                img.onload = function(){
+                    
+                    
+                
+                }
+
+                
+               img.addEventListener("load",function(){
+              
+               
+               console.log("-------------------")
+               console.log(this.height)
+               console.log(this.width)
+                sizes.push([this.height, this.width])
+                
+               
+               console.log("-------------------")
+               i = i + 1;
+               imageSizing(products, i,sizes)
+                
+               })
+              
+           
+                
+                
+               
+            }
+            
+        
+     
+
+        function imageSizing(products, i,sizes) {
+            item = products[i]
+            
+            if (i < products.length) {
+                getWidthHeight(item.image.path,sizes,i,products)
+                console.log("index = " + i)
+            } else {
+                console.log(sizes)
+                addSizesToImages(sizes,products)
+            }
+
+        }
 
 
 
+
+        function addSizesToImages(sizes,products){
+
+            for(let i = 0; i<products.length;i++){
+                let product = products[i];
+                let size = sizes[i];
+                console.log("------------------------")
+                console.log(size)
+
+                console.log(product.image.sizing.h)
+                console.log(product.image.sizing.w) 
+
+                console.log(product)
+                console.log("------------------------")
+            }
+
+        }
 
 
 
