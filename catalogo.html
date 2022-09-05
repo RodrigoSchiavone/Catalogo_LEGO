@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css\style.css">
     <title>CATALOGO</title>
+    <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 
 </head>
 
@@ -16,7 +17,7 @@
     <!-- Upload  -->
     <form action="" id="file-upload-form" class="uploader">
 
-        <input id="fileUpload" type="file" name="fileUpload" accept=".csv">
+        <input id="fileUpload" type="file" name="fileUpload" accept=".xlsx">
 
         <label for="fileUpload" id="file-drag">
 
@@ -34,38 +35,46 @@
     </form>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
     <script>
-        //<script type ="module" src="scripts/fileReader.js">,
+        const input = document.querySelector('input');
+        const formData = new FormData();
 
-        const input = document.querySelector('#fileUpload');
-        let csvArray
-        let test = false;
+        input.addEventListener('change', () => {
+            readXlsxFile(input.files[0]).then(function (data) {
+                let csvArray = [];
+                const excel = data;
+                console.log(excel)
 
-        input.addEventListener('change', function (e) {
-            const reader = new FileReader();
+                for(i = 7;i<excel.length; i++){
+
+                    let excelRow = excel[i];
+                    csvArray.push(excelRow[0]);
+                    csvArray.push(excelRow[2]);
+
+                    let linha = excelRow[3].toLowerCase();
+                    linha = linha.replace(" ","_");
+                    if(linha == "lego_classic"){
+                        linha = "classic"
+                    }
+                    csvArray.push(linha);
+
+                    if(excelRow[5]!=null){
+                        csvArray.push("new");
+                    }else{
+                        csvArray.push("old"); 
+                    }
+                   
+                   
+                    csvArray.push("R$ "+excelRow[8]);
+
+                }
+                console.log(csvArray);
+                arrayObjects(csvArray)
+
+            });
 
 
-            reader.readAsText(input.files[0]);
+        })
 
-            reader.onload = function () {
-                let commaSeparated = reader.result;
-                console.log('to aqui')
-
-
-                commaSeparated = commaSeparated.replace(/,/g, ".");
-                commaSeparated = commaSeparated.replace(/;/g, ",");
-                commaSeparated = commaSeparated.replace(/\r\n/g, ",");
-                commaSeparated = commaSeparated.replace(/\n/g, ",");
-                let csvDataArray = commaSeparated.split(",");
-                csvDataArray.pop();
-
-                csvArray = csvDataArray;
-                console.log(csvArray)
-
-                arrayObjects(csvArray);
-            }
-
-
-        }, false)
 
 
 
@@ -121,7 +130,10 @@
                 cod: { x: 3, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 3, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 3, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
-            }, {
+            }, 
+            
+            
+            {
                 cod: { x: 5.5, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 5.5, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 5.5, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
@@ -129,7 +141,10 @@
                 cod: { x: 5.5, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 5.5, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 5.5, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
-            }, {
+            },
+            
+            
+            {
                 cod: { x: 8, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 8, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 8, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
@@ -153,7 +168,10 @@
                 y: 4.2,
 
                 sizing: {type:"contain", h: "25%", w: "25%" }
-            }, {
+            },
+            
+
+            {
                 path: '',
                 x: 5.5,
                 y: 0.6,
@@ -166,7 +184,10 @@
 
                 sizing: {type:"contain", h: "25%", w: "25%" }
 
-            }, {
+            }, 
+            
+            
+            {
                 path: '',
                 x: 8,
                 y: 0.6,
@@ -420,8 +441,9 @@
                 template = await response.text();
                 console.log(template)
             })
-
+           
             slide[slidecounter].addImage(lego.image);
+                   
             slide[slidecounter].addText(lego.cod, lego.opt.cod);
             slide[slidecounter].addText(lego.name, lego.opt.name);
             slide[slidecounter].addText(lego.price, lego.opt.price);
@@ -574,7 +596,7 @@
 
         }
 
-
     </script>
+</body>
 
 </html>
