@@ -58,6 +58,8 @@
   
                 loadCircle.classList.remove("c-loader")
                 loadCircle.classList.add("c-complete")
+            }else if(validate == 2){
+                loadCircle.classList.remove("c-loader")
             }
             }
 
@@ -102,6 +104,9 @@
                     break
                 default :
                     alert('formato incorreto da planilha')
+                    text = 'Formato incorreto da planilha'
+                    validate = 2
+                    loader(text,validate)
                     break
             }
 
