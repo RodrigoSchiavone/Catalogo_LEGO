@@ -24,56 +24,121 @@
 
             <div id="start">
                 <i class="fa fa-download" aria-hidden="true"></i>
-                <div>Selecione um arquivo aqui</div>
+                <div class="selectFile">Selecione um arquivo aqui</div>
 
-                <span id="file-upload-btn" class="btn btn-primary">Selecione</span>
+                    <span id="file-upload-btn" class="btn btn-primary">Selecione</span>
+                
+                        <div id ="loader" class="loader">
+                            <p class="p-loader" ></p>
+                            <div id="c-loader" ></div>
+                        </div>
+                </div>
+                    
             </div>
-            <div id="response" class="hidden">
-                <div id="messages"></div>
-
-            </div>
+                
+             
         </label>
+        
     </form>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
     <script>
         const input = document.querySelector('input');
         const formData = new FormData();
+        
+
+        function loader (text,validate){
+            document.querySelector('.p-loader').textContent = text
+            console.log(validate)
+            let loadCircle = document.querySelector('#c-loader')
+
+            if(validate == 0){
+                loadCircle.classList.remove("c-complete")
+                loadCircle.classList.add("c-loader")
+            }else if(validate == 1){
+  
+                loadCircle.classList.remove("c-loader")
+                loadCircle.classList.add("c-complete")
+            }
+            }
+
+     
 
         input.addEventListener('change', () => {
+
+            let text = `Carregando arquivo...`
+            
+            let validate = 0
+            loader(text,validate)
+
+
             readXlsxFile(input.files[0]).then(function (data) {
+                text = `Gerando Catálogo...`
+                let validate = 0
+                loader(text,validate)
                 let csvArray = [];
                 const excel = data;
                 console.log(excel)
 
+             let lineToCheck = excel[7] 
+             let cell = String(lineToCheck[1])
+             let linkType
+            switch (cell.substring(0,3)){
+                case "411":
+                    console.log('Lista LEGO')
+                    linkType = "LEGO"
+                    filterInformation(excel,linkType)
+                    break
+                case "422":
+                    console.log('Lista MGA')
+                    linkType = "MGA"
+                    alert('Ainda não possuímos banco de imagens para catálogo MGA.\n No momento é possível gerar catálogos LEGO e LEGO Education.')
+                    //filterInformation(excel,linkType)
+                    break
+                case "433":
+                    console.log('Lista LEGO Education')
+                    linkType = "Education"
+
+                    filterInformation(excel,linkType)
+                    break
+                default :
+                    alert('formato incorreto da planilha')
+                    break
+            }
+
+            
+          
+            
+            function filterInformation(excel,linkType){
+
                 for(i = 7;i<excel.length; i++){
 
                     let excelRow = excel[i];
-                    csvArray.push(excelRow[0]);
-                    csvArray.push(excelRow[2]);
+                    csvArray.push(excelRow[0])
+                    csvArray.push(excelRow[2])
 
-                    let linha = excelRow[3].toLowerCase();
-                    linha = linha.replace(" ","_");
-                    linha = linha.replace(" ","_");
+                    let linha = excelRow[3].toLowerCase()
+                    linha = linha.replace(" ","_")
+                    linha = linha.replace(" ","_")
                     if(linha == "lego_classic"){
                         linha = "classic"
                     }
                     csvArray.push(linha);
 
                     if(excelRow[5]!=null){
-                        csvArray.push("new");
+                        csvArray.push("new")
                     }else{
-                        csvArray.push("old"); 
+                        csvArray.push("old")
                     }
                    
                    
-                    csvArray.push("R$ "+excelRow[8]);
+                    csvArray.push("R$ "+excelRow[8])
 
                 }
-                console.log(csvArray);
-                arrayObjects(csvArray)
-
+                
+                arrayObjects(csvArray,linkType)
+            }
             });
-
+        
 
         })
 
@@ -81,22 +146,22 @@
 
 
         function lineObject(line, quantity, slidesNumber) {
-            let lineObject = {};
+            let lineObject = {}
 
-            lineObject.line = line;
-            lineObject.quantity = quantity;
-            lineObject.slidesNumber = slidesNumber;
+            lineObject.line = line
+            lineObject.quantity = quantity
+            lineObject.slidesNumber = slidesNumber
 
-            return lineObject;
+            return lineObject
 
         }
 
-        const getOcurrences = (array, value) => array.reduce((acc, item) => value === item ? acc + 1 : acc, 0);
+        const getOcurrences = (array, value) => array.reduce((acc, item) => value === item ? acc + 1 : acc, 0)
 
 
 
 
-        function arrayObjects(csvArray) {
+        function arrayObjects(csvArray,linkType) {
 
 
             let lines = linesArray(csvArray)
@@ -107,50 +172,50 @@
             function itemFactory(cod, name, line, novelty, price, image, opt) {
 
                 let item = {}
-                item.cod = cod;
-                item.name = name;
-                item.line = line;
-                item.novelty = novelty;
-                item.price = price;
-                item.image = image;
-                item.opt = opt;
+                item.cod = cod
+                item.name = name
+                item.line = line
+                item.novelty = novelty
+                item.price = price
+                item.image = image
+                item.opt = opt
 
 
-                return item;
+                return item
 
             }
 
-            let codFont = { fontFace: "Cera Pro", fontSize: 16, bold: true, underline: false };
-            let nameFont = { fontFace: "Cera Pro Medium", fontSize: 12 };
-            let priceFont = { fontFace: "Cera Pro", fontSize: 12 };
+            let codFont = { fontFace: "Cera Pro", fontSize: 16, bold: true, underline: false }
+            let nameFont = { fontFace: "Cera Pro Medium", fontSize: 12 }
+            let priceFont = { fontFace: "Cera Pro", fontSize: 12 }
 
             let opts = [{
                 cod: { x: 3, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 3, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 3, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
-            }, {
-                cod: { x: 3, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 3, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
-                price: { x: 3, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             }, 
-            
-            
             {
                 cod: { x: 5.5, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 5.5, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 5.5, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
-            }, {
-                cod: { x: 5.5, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 5.5, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
-                price: { x: 5.5, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             },
-            
-            
             {
                 cod: { x: 8, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 8, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 8, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
-            }, {
+            },
+        
+            {
+                cod: { x: 3, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
+                name: { x: 3, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                price: { x: 3, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
+            }, 
+            {
+                cod: { x: 5.5, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
+                name: { x: 5.5, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                price: { x: 5.5, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
+            },
+            {
                 cod: { x: 8, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
                 name: { x: 8, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
                 price: { x: 8, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
@@ -164,22 +229,32 @@
                 y: 0.6,
 
                 sizing: {type:"contain", h: "25%", w: "25%" }
-            }, {
-                path: '',
-                x: 3,
-                y: 4.2,
-
-                sizing: {type:"contain", h: "25%", w: "25%" }
-            },
-            
-
+            }, 
             {
                 path: '',
                 x: 5.5,
                 y: 0.6,
 
                 sizing: {type:"contain", h: "25%", w: "25%" }
-            }, {
+            },
+            {
+                path: '',
+                x: 8,
+                y: 0.6,
+
+                sizing: {type:"contain", h: "25%", w: "25%" }
+            },
+
+
+
+            {
+                path: '',
+                x: 3,
+                y: 4.2,
+
+                sizing: {type:"contain", h: "25%", w: "25%" }
+            },
+             {
                 path: '',
                 x: 5.5,
                 y: 4.2,
@@ -187,15 +262,7 @@
                 sizing: {type:"contain", h: "25%", w: "25%" }
 
             }, 
-            
-            
             {
-                path: '',
-                x: 8,
-                y: 0.6,
-
-                sizing: {type:"contain", h: "25%", w: "25%" }
-            }, {
                 path: '',
                 x: 8,
                 y: 4.2,
@@ -269,6 +336,24 @@
             let image;
             let opt;
 
+            function linkAttribution(cod,linkType){
+
+                let url 
+                switch(linkType){
+
+                    case 'LEGO':
+                       url = `https://img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
+                       return url 
+                        break
+
+                    case 'Education':
+                        url = `https://cdn.rebrickable.com/media/sets/${cod}-1.jpg`
+                        return url 
+                        break
+
+
+                }
+            }
 
             for (let i = 0; i < csvArray.length / 5; i++) {
 
@@ -295,7 +380,7 @@
 
                     if (positionCounter <= 5) {
                         img = { ...images[positionCounter] };
-                        img.path = `https://img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
+                        img.path = linkAttribution(cod,linkType)
 
 
                         image = img;
@@ -310,7 +395,7 @@
                     } else {
                         positionCounter = 0;
                         img = { ...images[positionCounter] };
-                        img.path = `//img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
+                        img.path = linkAttribution(cod,linkType)
                         image = img;
 
                         opt = opts[positionCounter];
@@ -323,7 +408,7 @@
                     positionCounter = 0;
                     lineQuantityCounter = 0;
                     img = { ...images[positionCounter] };
-                    img.path = `//img.bricklink.com/ItemImage/ON/0/${cod}-1.png`
+                    img.path = linkAttribution(cod,linkType)
                     image = img;
 
                     opt = opts[positionCounter];
@@ -348,9 +433,9 @@
             let i = 0;
             
             let sizes = []
+
             generate(products,lines)
 
-            imageSizing(products, i,sizes)
 
         }
 
@@ -375,15 +460,12 @@
                img.addEventListener("load",function(){
               
                
-               console.log("-------------------")
-               console.log(this.height)
-               console.log(this.width)
+               
                 sizes.push([this.height, this.width])
                 
                
-               console.log("-------------------")
                i = i + 1;
-               imageSizing(products, i,sizes)
+              
                 
                })
               
@@ -394,45 +476,6 @@
             }
             
         
-     
-
-        function imageSizing(products, i,sizes) {
-            item = products[i]
-            
-            if (i < products.length) {
-                getWidthHeight(item.image.path,sizes,i,products)
-                console.log("index = " + i)
-            } else {
-                console.log(sizes)
-                addSizesToImages(sizes,products)
-            }
-
-        }
-
-
-
-
-        function addSizesToImages(sizes,products){
-
-            for(let i = 0; i<products.length;i++){
-                let product = products[i];
-                let size = sizes[i];
-                console.log("------------------------")
-                console.log(size)
-
-                console.log(product.image.sizing.h)
-                console.log(product.image.sizing.w) 
-
-                console.log(product)
-                console.log("------------------------")
-            }
-
-        }
-
-
-
-
-
 
 
 
@@ -489,12 +532,13 @@
             }
 
             slide[slidecounter].addImage(imageLine);
-            console.log("funcionei")
+            
 
         }
 
-
+        
         function generate(products, lines) {
+           
             let pptx = new PptxGenJS();
             pptx.defineLayout({ name: 'A3', width: 10.83, height: 7.5 })
             pptx.layout = 'A3'
@@ -526,11 +570,7 @@
 
                     let lego = products[i];
 
-                    console.log("quantidade na linha " + actualLine.line + " : " + actualLine.quantity);
-                    console.log("counter" + lineQuantityCounter)
-                    console.log("lego atual : " + lego.name + " " + lego.line)
-                    console.log("------------------------------------------------------------------------")
-
+            
 
 
                     if (index1 == 0) {
@@ -588,16 +628,18 @@
 
             }
 
-            pptx.writeFile();
-
-
-
-
-
-
-
+          
+        
+           
+            pptx.writeFile().then(() =>{
+                let pElement = 'Pronto!'
+                let validate = 1
+                loader(pElement,validate)
+            })
+            
+            
         }
-
+        
     </script>
 </body>
 
