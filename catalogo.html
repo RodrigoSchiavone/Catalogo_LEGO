@@ -132,7 +132,7 @@
                     csvArray.push(excelRow[lego_code])
 
                     if(linkType =="Education"){
-                        let name = excelRow[lego_name]+" idade "+String(excelRow[lego_age_group])
+                        let name = excelRow[lego_name]+"\n(idade "+String(excelRow[lego_age_group]+")")
                         csvArray.push(name.toLocaleLowerCase())
 
                     }else{
@@ -238,38 +238,38 @@
             }
 
             let codFont = { fontFace: "Cera Pro", fontSize: 16, bold: true, underline: false }
-            let nameFont = { fontFace: "Cera Pro Medium", fontSize: 12 }
+            let nameFont = { fontFace: "Cera Pro Medium", fontSize: 12, align:'center' }
             let priceFont = { fontFace: "Cera Pro", fontSize: 12 }
 
             let opts = [{
                 cod: { x: 3, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 3, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 3, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 3, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             }, 
             {
                 cod: { x: 5.5, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 5.5, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 5.5, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 5.5, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             },
             {
                 cod: { x: 8, y: 0.2, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 8, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 8, y: 2.4, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 8, y: 3, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             },
         
             {
                 cod: { x: 3, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 3, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 3, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 3, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             }, 
             {
                 cod: { x: 5.5, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 5.5, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 5.5, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 5.5, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             },
             {
                 cod: { x: 8, y: 3.7, h: '4%', fontFace: codFont.fontFace, fontSize: codFont.fontSize, bold: codFont.bold, underline: codFont.underline },
-                name: { x: 8, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize },
+                name: { x: 8, y: 6.2, h: '10%', w: '20%', fontFace: nameFont.fontFace, fontSize: nameFont.fontSize, align:nameFont.align },
                 price: { x: 8, y: 6.89, h: '7%', fontFace: priceFont.fontFace, fontSize: priceFont.fontSize }
             }]
 
@@ -493,51 +493,7 @@
 
 
 
-
-
-        function getWidthHeight(url,sizes,i,products) {
-          
-                var img = new Image();
-                img.src = url;
-                let size = [];
-               
-
-                img.onload = function(){
-                    
-                    
-                
-                }
-
-                
-               img.addEventListener("load",function(){
-              
-               
-               
-                sizes.push([this.height, this.width])
-                
-               
-               i = i + 1;
-              
-                
-               })
-              
-           
-                
-                
-               
-            }
-            
-        
-
-
-
         function addNewProduct(slide, lego, slidecounter, pptx) {
-            let template;
-            (async () => {
-                const response = await fetch('https://img.bricklink.com/ItemImage/SN/0/10964-1.png');
-                template = await response.text();
-                console.log(template)
-            })
            
             slide[slidecounter].addImage(lego.image);
                    
