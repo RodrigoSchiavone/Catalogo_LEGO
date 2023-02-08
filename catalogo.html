@@ -114,33 +114,84 @@
           
             
             function filterInformation(excel,linkType){
+                    let lego_code = 0
+                    let lego_name = 2
+                    let lego_line = 3
+                    let lego_age_group = 4
+                    let release_date = 5
+                    let lego_price
+                    if(linkType =="Education"){
+                         lego_price = 7
+                    }else{
+                         lego_price = 8
+                    }
 
                 for(i = 7;i<excel.length; i++){
 
                     let excelRow = excel[i];
-                    csvArray.push(excelRow[0])
-                    csvArray.push(excelRow[2])
+                    csvArray.push(excelRow[lego_code])
 
-                    let linha = excelRow[3].toLowerCase()
+                    if(linkType =="Education"){
+                        let name = excelRow[lego_name]+" idade "+String(excelRow[lego_age_group])
+                        csvArray.push(name.toLocaleLowerCase())
+
+                    }else{
+                    csvArray.push(excelRow[lego_name])
+                }
+                    if(linkType =="Education"){
+                        let age_group = excelRow[lego_age_group]
+                        age_group = age_group.replace("+","")
+                        age_group = age_group.replace("½",".5")
+                        age_group = Number(age_group)
+                        console.log("idade "+age_group)
+
+                        if(age_group <= 5){
+
+                            csvArray.push("educacao_infantil")
+
+                        }else if(age_group >= 6 && age_group < 10){
+                        
+                            csvArray.push("fundamental_1")
+
+                        }else if(age_group >= 10 && age_group < 12){
+
+                            csvArray.push("fundamental_1_e_2")
+
+                        }else if(age_group > 12){
+
+                            csvArray.push("ensino_medio")
+
+                        }
+                            
+                            
+                                
+                        
+                    }else{
+                    let linha = excelRow[lego_line].toLowerCase()
                     linha = linha.replace(" ","_")
                     linha = linha.replace(" ","_")
                     if(linha == "lego_classic"){
                         linha = "classic"
                     }
                     csvArray.push(linha);
+                }
 
-                    if(excelRow[5]!=null){
+                if(linkType =="Education"){
+                    csvArray.push("old")
+                }else{
+                    if(excelRow[release_date]!=null){
                         csvArray.push("new")
                     }else{
                         csvArray.push("old")
                     }
+                }
                    
-                   
-                    csvArray.push("R$ "+excelRow[8])
+                    csvArray.push("R$ "+excelRow[lego_price])
 
                 }
                 
                 arrayObjects(csvArray,linkType)
+                console.log(csvArray)
             }
             });
         
