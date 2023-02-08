@@ -74,7 +74,7 @@
 
 
             readXlsxFile(input.files[0]).then(function (data) {
-                text = `Gerando Catálogo...`
+                text = `Gerando ─=≡Σ((( つ◕ل͜◕)つ Catálogo...`
                 let validate = 0
                 loader(text,validate)
                 let csvArray = [];
@@ -93,8 +93,11 @@
                 case "422":
                     console.log('Lista MGA')
                     linkType = "MGA"
-                    alert('Ainda não possuímos banco de imagens para catálogo MGA.\n No momento é possível gerar catálogos LEGO e LEGO Education.')
+                    alert('Ainda não possuímos banco de imagens para catálogo MGA.\nNo momento é possível gerar catálogos LEGO e LEGO Education.')
                     //filterInformation(excel,linkType)
+                    text = '⤜(ⱺ ʖ̯ⱺ)⤏ MGA ainda não dá... ⤜(ⱺ ʖ̯ⱺ)⤏'
+                    validate = 2
+                    loader(text,validate)
                     break
                 case "433":
                     console.log('Lista LEGO Education')
@@ -103,8 +106,8 @@
                     filterInformation(excel,linkType)
                     break
                 default :
-                    alert('formato incorreto da planilha')
-                    text = 'Formato incorreto da planilha'
+                    alert('formato incorreto da planilha ')
+                    text = '(눈_눈)'
                     validate = 2
                     loader(text,validate)
                     break
@@ -552,7 +555,7 @@
             pptx.layout = 'A3'
 
 
-
+    
 
 
             let actualLineIndex = 0;
@@ -640,7 +643,7 @@
         
            
             pptx.writeFile().then(() =>{
-                let pElement = 'Pronto!'
+                let pElement = 	'Pronto! (☞ﾟ∀ﾟ)☞ '
                 let validate = 1
                 loader(pElement,validate)
             })
