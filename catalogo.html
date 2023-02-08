@@ -379,7 +379,7 @@
             let products = [];
 
             let actualLineIndex = 0;
-            let index1 = 0;
+            let itemsPerPage = 0;
             let positionCounter = 0;
             let lineQuantityCounter = 0;
             let actualLine;
@@ -413,27 +413,27 @@
 
             for (let i = 0; i < csvArray.length / 5; i++) {
 
-                cod = csvArray[index1];
-                index1 = index1 + 1;
+                cod = csvArray[itemsPerPage];
+                itemsPerPage = itemsPerPage + 1;
 
-                name = csvArray[index1];
-                index1 = index1 + 1;
+                name = csvArray[itemsPerPage];
+                itemsPerPage = itemsPerPage + 1;
 
-                line = csvArray[index1];
-                index1 = index1 + 1;
+                line = csvArray[itemsPerPage];
+                itemsPerPage = itemsPerPage + 1;
 
-                novelty = csvArray[index1];
-                index1 = index1 + 1;
+                novelty = csvArray[itemsPerPage];
+                itemsPerPage = itemsPerPage + 1;
 
-                price = csvArray[index1];
-                index1 = index1 + 1;
+                price = csvArray[itemsPerPage];
+                itemsPerPage = itemsPerPage + 1;
 
                 actualLine = lines[actualLineIndex];
 
 
 
                 if (lineQuantityCounter < actualLine.quantity) {
-
+//alterar maxima posição
                     if (positionCounter <= 5) {
                         img = { ...images[positionCounter] };
                         img.path = linkAttribution(cod,linkType)
@@ -604,7 +604,7 @@
 
 
             let actualLineIndex = 0;
-            let index1 = 0;
+            let itemsPerPage = 0;
             let positionCounter = 0;
             let lineQuantityCounter = 0;
             let actualLine;
@@ -622,26 +622,26 @@
                 actualLine = lines[actualLineIndex];
 
 
-                if (lineQuantityCounter < actualLine.quantity && index1 <= 5) {
+                if (lineQuantityCounter < actualLine.quantity && itemsPerPage <= 5) {
 
                     let lego = products[i];
 
             
 
 
-                    if (index1 == 0) {
+                    if (itemsPerPage == 0) {
                         addLateralImage(slide, slidecounter, products[i])
                     }
 
                     addNewProduct(slide, lego, slidecounter, pptx);
 
                     lineQuantityCounter = lineQuantityCounter + 1;
-                    index1 = index1 + 1;
+                    itemsPerPage = itemsPerPage + 1;
 
 
                 } else {
 
-                    index1 = 0;
+                    itemsPerPage = 0;
                     let lego = products[i];
 
 
@@ -665,7 +665,7 @@
                     console.log("lego atual : " + lego.name + " " + lego.line)
                     console.log("------------------------------------------------------------------------")
 
-                    if (index1 == 0) {
+                    if (itemsPerPage == 0) {
 
                         addLateralImage(slide, slidecounter, lego)
 
@@ -676,7 +676,7 @@
                     lineQuantityCounter = lineQuantityCounter + 1;
 
 
-                    index1 = index1 + 1;
+                    itemsPerPage = itemsPerPage + 1;
 
                 }
 
