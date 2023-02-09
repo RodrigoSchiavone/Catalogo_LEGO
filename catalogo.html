@@ -489,7 +489,7 @@
             
             let sizes = []
 
-            generate(products,lines)
+            generate(products,lines,linkType)
 
 
         }
@@ -548,7 +548,232 @@
         }
 
         
-        function generate(products, lines) {
+
+        function createCover(pptx,slide,linkType){
+            
+            slide[0] = pptx.addSlide()
+
+            switch(linkType){
+                case "LEGO":
+
+                    let lego_logo_image ={
+                        path: 'images/lego_logo.png',
+                        x: 0.70,
+                        y: 0.81,
+                        h: 1.58,
+                        w: 1.58
+                    }
+
+                    let background_light_image = {
+                        path: 'images/light_first_slide.png',
+                        x:-4.24,
+                        y: 2.39,
+                        w: 19.97,
+                        h: 8.86
+
+                    }
+                    let minifigure_image = {
+                        path: 'images/mnifigure_first_slide.png',
+                        x: 4.18,
+                        y: 0.46,
+                        w: 6.66,
+                        h: 7.04
+
+                    }
+
+                    let text_shape = "Imagens meramente ilustrativas, não estão proporcionais umas as outras. Qualquer dúvida consultar o vendedor da sua região."
+                
+                    slide[0].background = { color: "FFD500"}
+
+                    slide[0].addImage(lego_logo_image) 
+                    slide[0].addImage(background_light_image) 
+                    slide[0].addImage(minifigure_image)
+                    slide[0].addText(text_shape, {
+                        shape: pptx.shapes.ROUNDED_RECTANGLE,
+                        rectRadius:0.3,
+                        y: 5.73,
+                        x: 0.40,
+                        align: "left",
+                        fill: { type: "solid", color: "d70911" },
+                        fontFace: "Cera Pro", 
+                        color:'ffffff',
+                        fontSize: 12 ,
+                        h: 2.21,
+                        w: 3.46,
+
+                    });
+                    slide[0].addText("Catálogo de\nProdutos", {
+                        
+                        y: 3.00,
+                        x: 0.59,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 35 ,
+                        h: 1.33,
+                        w: 5.38,
+                        
+
+                    });
+                    const actualDate = new Date()
+                    const actualYear = actualDate.getFullYear()
+                    slide[0].addText(actualYear, {
+                        
+                        y: 4.20,
+                        x: 0.59,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 90 ,
+                        h: 1.25,
+                        w: 5.38,
+                        bold:true
+                        
+
+                    });
+                break
+
+                case "Education":
+
+
+                break
+
+                case "MGA":
+
+                break
+
+
+            }
+        }
+
+
+        function createFinalSlide(pptx,slide,slidecounter,linkType){
+            slidecounter = slidecounter + 1
+            slide[slidecounter] = pptx.addSlide();
+
+            switch(linkType){
+                case "LEGO":
+                    slide[slidecounter].background = { color: "FFD500"}
+                    let lego_logo_image ={
+                        path: 'images/lego_logo.png',
+                        x: 0.70,
+                        y: 0.81,
+                        h: 1.58,
+                        w: 1.58
+                    }
+
+                    let cloud_image_1 = {
+                        path: 'images/lego_cloud.png',
+                        x: 3.02,
+                        y: 0.50,
+                        h: 1.46,
+                        w: 2.40
+                    }
+
+                    let cloud_image_2 = {
+                        path: 'images/lego_cloud.png',
+                        x: 9.42,
+                        y: -0.46,
+                        h: 1.46,
+                        w: 2.40
+                    }
+                    let camera_cloud_image = {
+                        path: 'images/camera_cloud.png',
+                        x: 5.55,
+                        y: 0.81,
+                        h: 4.73,
+                        w: 4.95
+                    }
+                    slide[slidecounter].addImage(lego_logo_image)
+                    slide[slidecounter].addImage(cloud_image_1)
+                    slide[slidecounter].addImage(cloud_image_2)
+                    slide[slidecounter].addImage(camera_cloud_image)
+
+                    let text_shape = "LEGO_ftp@2022"
+                    slide[slidecounter].addText(text_shape, {
+                        shape: pptx.shapes.ROUNDED_RECTANGLE,
+                        rectRadius:0.3,
+                        y: 5.75,
+                        x: 6.66,
+                        align: "left",
+                        fill: { type: "solid", color: "d70911" },
+                        fontFace: "Cera Pro", 
+                        color:'ffffff',
+                        fontSize: 25 ,
+                        h: 2.21,
+                        w: 3.46,
+
+                    });
+                    slide[slidecounter].addText("Senha", {
+                        
+                        x: 6.72,
+                        y: 5.98,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'ffffff',
+                        fontSize: 35 ,
+                        h: 0.64,
+                        w: 2.49,
+                        bold:true
+                    });
+                    slide[slidecounter].addText("NOVO FTP!", {
+                        
+                        x: 0.59,
+                        y: 3.00,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 32 ,
+                        h: 0.52,
+                        w: 2.95,
+                        bold:true
+                    });
+                    slide[slidecounter].addText("Acesse o link para obter imagens e informações técnicas dos seus produtos LEGO®", {
+                        
+                        x: 0.59,
+                        y: 3.35,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 25 ,
+                        w: 5.52,
+                        h: 2.18,
+                        bold:false
+                    });
+                    let ftp = "https://grupomcassab-my.sharepoint.com/:f:/g/personal/tradelego_mcassab_com_br/EiRmFEmazfpBjyY66qFj66oB1Iq-BeAjLf9nVnldzdyD3g?e=CWvbCO"
+                    slide[slidecounter].addText(ftp , {
+                        
+                        x: 0.59,
+                        y: 5.31,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'454cad',
+                        fontSize: 20 ,
+                        h: 0.97,
+                        w: 4.92,
+                        hyperlink: {url:ftp} ,
+                        bold:false
+                    });
+
+                break
+
+                case "EDucation":
+                
+                break
+
+                case "MGA":
+
+                break
+            }
+            
+        }
+        function generate(products, lines,linkType) {
            
             let pptx = new PptxGenJS();
             pptx.defineLayout({ name: 'A3', width: 10.83, height: 7.5 })
@@ -568,10 +793,12 @@
 
 
             let slide = [];
+           
+
+            createCover(pptx,slide,linkType)
+
+            slidecounter = slidecounter+1
             slide[slidecounter] = pptx.addSlide();
-
-
-
             for (let i = 0; i < products.length; i++) {
 
                 actualLine = lines[actualLineIndex];
@@ -640,7 +867,9 @@
             }
 
           
-        
+            
+            createFinalSlide(pptx,slide,slidecounter,linkType)
+            
            
             pptx.writeFile().then(() =>{
                 let pElement = 	'Pronto! (☞ﾟ∀ﾟ)☞ '
