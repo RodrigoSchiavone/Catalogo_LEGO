@@ -41,11 +41,12 @@
         
     </form>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.11.0/dist/pptxgen.bundle.js"></script>
+    <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
     <script>
         const input = document.querySelector('input');
         const formData = new FormData();
         
-
+        let initialRow = 8;
         function loader (text,validate){
             document.querySelector('.p-loader').textContent = text
             console.log(validate)
@@ -81,9 +82,10 @@
                 const excel = data;
                 console.log(excel)
 
-             let lineToCheck = excel[7] 
+             let lineToCheck = excel[initialRow] 
              let cell = String(lineToCheck[1])
              let linkType
+             console.log(cell)
             switch (cell.substring(0,3)){
                 case "411":
                     console.log('Lista LEGO')
@@ -129,7 +131,7 @@
                          lego_price = 8
                     }
 
-                for(i = 7;i<excel.length; i++){
+                for(i = initialRow;i<excel.length; i++){
 
                     let excelRow = excel[i];
                     csvArray.push(excelRow[lego_code])
