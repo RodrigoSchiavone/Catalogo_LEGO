@@ -64,8 +64,6 @@
             }
             }
 
-     
-
         input.addEventListener('change', () => {
 
             let text = `Carregando arquivo...`
@@ -73,20 +71,22 @@
             let validate = 0
             loader(text,validate)
 
-
+            
             readXlsxFile(input.files[0]).then(function (data) {
+
+                
                 text = `Gerando ─=≡Σ((( つ◕ل͜◕)つ Catálogo...`
                 let validate = 0
                 loader(text,validate)
-                let csvArray = [];
-                const excel = data;
+                let csvArray = []
+                const excel = data
                 console.log(excel)
 
              let lineToCheck = excel[initialRow] 
              let cell = String(lineToCheck[1])
              let linkType
              console.log(cell)
-            switch (cell.substring(0,3)){
+                switch (cell.substring(0,3)){
                 case "411":
                     console.log('Lista LEGO')
                     linkType = "LEGO"
@@ -113,7 +113,7 @@
                     validate = 2
                     loader(text,validate)
                     break
-            }
+                }
 
             
           
@@ -143,12 +143,13 @@
                     }else{
                     csvArray.push(excelRow[lego_name])
                 }
-                    if(linkType =="Education"){
+                    if(linkType =="Educations"){
                         let age_group = excelRow[lego_age_group]
                         age_group = age_group.replace("+","")
                         age_group = age_group.replace("½",".5")
                         age_group = Number(age_group)
                         console.log("idade "+age_group)
+                        console.log(excelRow[lego_line])
 
                         if(age_group <= 5){
 
@@ -174,7 +175,8 @@
                     if(linha == "lego_classic"){
                         linha = "classic"
                     }
-                    csvArray.push(linha);
+                    csvArray.push(linha)
+                    console.log(linha)
                 }
 
                 if(linkType =="Education"){
@@ -543,9 +545,9 @@
                 h: '100%',
                 w: 3.08
             }
-
-            slide[slidecounter].addImage(imageLine);
-            
+           
+                slide[slidecounter].addImage(imageLine);
+           
 
         }
 
@@ -638,7 +640,108 @@
                 break
 
                 case "Education":
+                    let education_capa = {
+                        path: 'images/imgEducation.png',
+                        x: 4.61,
+                        y: 2.47,
+                        h: 3.25,
+                        w: 6.22
+                    }
+                
+                     let mcassab_toys_logo = {
+                        path: 'images/mcassabToysLogo.png',
+                        x: 6.45,
+                        y: 0.02,
+                        h: 2.25,
+                        w: 4
+                       
+                    }
 
+                    let education_logo = {
+                        path: 'images/educationLogo.png',
+                        x: 0.55,
+                        y: 0.62,
+                        h: 1.06,
+                        w: 3.9
+                        
+                    }
+
+                    slide[0].addShape(pptx.ShapeType.rect, {
+
+                        y: 2.47,
+                        x: 0.00,
+                        align: "left",
+                        fill: { color:'E9E9E9'},
+                        h: 3.25,
+                        w: 10.83,
+                
+                    });
+                    slide[0].addImage(education_capa)
+                    slide[0].addImage(education_logo)
+                    slide[0].addImage(mcassab_toys_logo)
+
+                    slide[0].addText("PRODUTOS",{
+                        y: 2.75,
+                        x: 0.55,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 28 ,
+                        h: 0.63,
+                        w: 4.3,
+                        bold:true
+                    })
+                    const date = new Date()
+                    const Year = date.getFullYear()
+                    slide[0].addText(Year,{
+                        y: 3.31,
+                        x: 0.55,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'000000',
+                        fontSize: 36 ,
+                        h: 0.63,
+                        w: 4.3,
+                        bold:true
+                    })
+                    slide[0].addText("Evoluindo a forma",{
+                        y: 4.21,
+                        x: 0.55,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'0078C5',
+                        fontSize: 28 ,
+                        h: 0.48,
+                        w: 4.4,
+                        bold:false
+                    })
+                    slide[0].addText("de aprender.",{
+                        y: 4.71,
+                        x: 0.55,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro", 
+                        color:'0078C5',
+                        fontSize: 28 ,
+                        h: 0.48,
+                        w: 4.4,
+                        bold:true
+                    })
+                    slide[0].addText("*Imagens meramente ilustrativas, não estão proporcionais umas às outras, qualquer dúvida consultar o vendedor da sua região.",{
+                        y: 6.83,
+                        x: 0.55,
+                        align: "left",
+                        fill: { type: "none"},
+                        fontFace: "Cera Pro Medium", 
+                        color:'000000',
+                        fontSize: 10 ,
+                        h: 0.23,
+                        w: 9.87,
+                        bold:false
+                    })
 
                 break
 
@@ -782,9 +885,6 @@
             pptx.layout = 'A3'
 
 
-    
-
-
             let actualLineIndex = 0;
             let itemsPerPage = 0;
             let positionCounter = 0;
@@ -838,17 +938,9 @@
                     }
 
                     slidecounter = slidecounter + 1;
-                    console.log('                                                                      ')
-                    console.log('----------------------------------------------------------------------')
-                    console.log('novo slide')
-                    console.log('----------------------------------------------------------------------')
+                    
                     slide[slidecounter] = pptx.addSlide();
-                    console.log('                                                                      ')
-                    console.log("quantidade na linha " + actualLine.line + " : " + actualLine.quantity);
-                    console.log("counter" + lineQuantityCounter)
-                    console.log("lego atual : " + lego.name + " " + lego.line)
-                    console.log("------------------------------------------------------------------------")
-
+                  
                     if (itemsPerPage == 0) {
 
                         addLateralImage(slide, slidecounter, lego)
@@ -869,10 +961,21 @@
             }
 
           
+            switch(linkType){
+                case "LEGO":
+                    createFinalSlide(pptx,slide,slidecounter,linkType)
+                break
+                case "Education":
+
+                break
+                default:
+
+                break
+
+            }
+                
             
-            createFinalSlide(pptx,slide,slidecounter,linkType)
-            
-           
+        
             pptx.writeFile().then(() =>{
                 let pElement = 	'Pronto! (☞ﾟ∀ﾟ)☞ '
                 let validate = 1
