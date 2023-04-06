@@ -169,15 +169,15 @@
                                 
                         
                     }else{
-                    let linha = excelRow[lego_line].toLowerCase()
-                    linha = linha.replace(" ","_")
-                    linha = linha.replace(" ","_")
-                    if(linha == "lego_classic"){
-                        linha = "classic"
+                        let linha = excelRow[lego_line].toLowerCase()
+                        linha = linha.replace(" ","_")
+                        linha = linha.replace(" ","_")
+                            if(linha == "lego_classic"){
+                            linha = "classic"
+                        }
+                        csvArray.push(linha)
+                        console.log(linha)
                     }
-                    csvArray.push(linha)
-                    console.log(linha)
-                }
 
                 if(linkType =="Education"){
                     csvArray.push("old")
@@ -642,103 +642,113 @@
                 case "Education":
                     let education_capa = {
                         path: 'images/imgEducation.png',
-                        x: 4.61,
-                        y: 2.47,
-                        h: 3.25,
-                        w: 6.22
+                        x: 4.98,
+                        y: 2.51,
+                        h: 3.65,
+                        w: 6.04
                     }
                 
                      let mcassab_toys_logo = {
                         path: 'images/mcassabToysLogo.png',
-                        x: 6.45,
-                        y: 0.02,
-                        h: 2.25,
-                        w: 4
+                        x: 6.5,
+                        y: 0.01,
+                        h: 2.26,
+                        w: 4.0
                        
                     }
 
                     let education_logo = {
                         path: 'images/educationLogo.png',
                         x: 0.55,
-                        y: 0.62,
-                        h: 1.06,
-                        w: 3.9
+                        y: 0.61,
+                        h: 1.07,
+                        w: 3.89
                         
                     }
 
                     slide[0].addShape(pptx.ShapeType.rect, {
 
-                        y: 2.47,
-                        x: 0.00,
+                        y: 2.52,
+                        x: -0.07,
                         align: "left",
                         fill: { color:'E9E9E9'},
-                        h: 3.25,
-                        w: 10.83,
+                        h: 3.67,
+                        w: 10.97,
                 
+                    });
+
+                    slide[0].addShape(pptx.ShapeType.rect, {
+
+                        y: 2.19,
+                        x: 0.0,
+                        fill: { color:'0078C6'},
+                        h: 0.07,
+                        w: 10.83,
+
                     });
                     slide[0].addImage(education_capa)
                     slide[0].addImage(education_logo)
                     slide[0].addImage(mcassab_toys_logo)
 
                     slide[0].addText("PRODUTOS",{
-                        y: 2.75,
-                        x: 0.55,
+                        y: 2.85,
+                        x: 0.46,
                         align: "left",
                         fill: { type: "none"},
                         fontFace: "Cera Pro", 
                         color:'000000',
-                        fontSize: 28 ,
-                        h: 0.63,
+                        fontSize: 38 ,
+                        h: 0.66,
                         w: 4.3,
                         bold:true
                     })
                     const date = new Date()
                     const Year = date.getFullYear()
                     slide[0].addText(Year,{
-                        y: 3.31,
-                        x: 0.55,
+                        y: 3.49,
+                        x: 0.46,
                         align: "left",
                         fill: { type: "none"},
                         fontFace: "Cera Pro", 
                         color:'000000',
-                        fontSize: 36 ,
-                        h: 0.63,
-                        w: 4.3,
+                        fontSize: 38 ,  
+                        h: 0.66,
+                        w: 4.36,
                         bold:true
                     })
                     slide[0].addText("Evoluindo a forma",{
-                        y: 4.21,
-                        x: 0.55,
+                        y: 4.34,
+                        x: 0.45,
                         align: "left",
                         fill: { type: "none"},
-                        fontFace: "Cera Pro", 
+                        fontFace: "Cera Pro Medium", 
                         color:'0078C5',
-                        fontSize: 28 ,
-                        h: 0.48,
-                        w: 4.4,
+                        fontSize: 31 ,
+                        h: 0.52,
+                        w: 4.1,
                         bold:false
                     })
                     slide[0].addText("de aprender.",{
-                        y: 4.71,
-                        x: 0.55,
+                        y: 4.8,
+                        x: 0.45,
                         align: "left",
                         fill: { type: "none"},
-                        fontFace: "Cera Pro", 
+                        fontFace: "Cera Pro Medium", 
                         color:'0078C5',
-                        fontSize: 28 ,
-                        h: 0.48,
-                        w: 4.4,
+                        fontSize: 31 ,
+                        h: 0.45,
+                        w: 3.65,
                         bold:true
                     })
                     slide[0].addText("*Imagens meramente ilustrativas, não estão proporcionais umas às outras, qualquer dúvida consultar o vendedor da sua região.",{
-                        y: 6.83,
-                        x: 0.55,
+                        y: 6.78,
+                        x: 0.68,
                         align: "left",
                         fill: { type: "none"},
                         fontFace: "Cera Pro Medium", 
                         color:'000000',
-                        fontSize: 10 ,
-                        h: 0.23,
+                        fontSize: 11 ,
+                        h: 0.2,
                         w: 9.87,
                         bold:false
                     })
