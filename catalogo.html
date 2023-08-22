@@ -173,12 +173,17 @@
                         linha = linha.replace(" ","_")
                         linha = linha.replace(" ","_")
                             if(linha == "lego_classic"){
-                            linha = "classic"
+                            linha = "classic"    
+                        }
+                        if(linha == "4+"){
+                            linha = "juniors"
+                        }
+                        if(linha == "art"){
+                            linha = "lego_art"
                         }
                         csvArray.push(linha)
-                        console.log(linha)
                     }
-
+                
                 if(linkType =="Education"){
                     csvArray.push("old")
                 }else{
@@ -194,7 +199,7 @@
                 }
                 
                 arrayObjects(csvArray,linkType)
-                console.log(csvArray)
+                
             }
             });
         
@@ -889,7 +894,7 @@
             
         }
         function generate(products, lines,linkType) {
-           
+            console.log(lines)
             let pptx = new PptxGenJS();
             pptx.defineLayout({ name: 'A3', width: 10.83, height: 7.5 })
             pptx.layout = 'A3'
