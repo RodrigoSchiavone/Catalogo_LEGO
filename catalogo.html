@@ -92,21 +92,6 @@
                     linkType = "LEGO"
                     filterInformation(excel,linkType)
                     break
-                case "422":
-                    console.log('Lista MGA')
-                    linkType = "MGA"
-                    alert('Ainda não possuímos banco de imagens para catálogo MGA.\nNo momento é possível gerar catálogos LEGO e LEGO Education.')
-                    //filterInformation(excel,linkType)
-                    text = '⤜(ⱺ ʖ̯ⱺ)⤏ MGA ainda não dá... ⤜(ⱺ ʖ̯ⱺ)⤏'
-                    validate = 2
-                    loader(text,validate)
-                    break
-                case "433":
-                    console.log('Lista LEGO Education')
-                    linkType = "Education"
-
-                    filterInformation(excel,linkType)
-                    break
                 default :
                     alert('formato incorreto da planilha ')
                     text = '(눈_눈)'
@@ -124,12 +109,7 @@
                     let lego_line = 3
                     let lego_age_group = 4
                     let release_date = 5
-                    let lego_price
-                    if(linkType =="Education"){
-                         lego_price = 7
-                    }else{
-                         lego_price = 8
-                    }
+                    let lego_price = 8
 
                 for(i = initialRow;i<excel.length; i++){
 
