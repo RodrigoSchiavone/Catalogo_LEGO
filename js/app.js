@@ -1,28 +1,17 @@
+        
+        import { loader } from "./loader.js";
+        
+        
         const input = document.querySelector('input');
         const formData = new FormData();
 
-        let initialRow = 1;
-        function loader(text, validate) {
-            document.querySelector('.p-loader').textContent = text
-            console.log(validate)
-            let loadCircle = document.querySelector('#c-loader')
+        const initialRow = 1;
 
-            if (validate == 0) {
-                loadCircle.classList.remove("c-complete")
-                loadCircle.classList.add("c-loader")
-            } else if (validate == 1) {
-
-                loadCircle.classList.remove("c-loader")
-                loadCircle.classList.add("c-complete")
-            } else if (validate == 2) {
-                loadCircle.classList.remove("c-loader")
-            }
-        }
 
         input.addEventListener('change', () => {
+            
 
             let text = `Carregando arquivo...`
-
             let validate = 0
             loader(text, validate)
 
@@ -59,6 +48,9 @@
 
 
                 function filterInformation(excel, linkType) {
+
+                    
+                    
                     let lego_code = 0
                     let lego_name = 2
                     let lego_line = 3
@@ -68,13 +60,12 @@
                     let lego_caixa_master = 7
 
 
-                    for (i = initialRow; i < excel.length; i++) {
+                    for (let i = initialRow; i < excel.length; i++) {
 
                         let excelRow = excel[i];
+
                         csvArray.push(excelRow[lego_code])
-
                         csvArray.push(excelRow[lego_name])
-
 
                         let linha = excelRow[lego_line].toLowerCase()
                         linha = linha.replace(" ", "_")
@@ -91,7 +82,6 @@
                         csvArray.push(linha)
                     
 
-
                     if (excelRow[release_date] != null) {
                         csvArray.push("new")
                     } else {
@@ -99,6 +89,10 @@
                     }
 
                     csvArray.push("R$ " + excelRow[lego_price])
+                    csvArray.push(excelRow[lego_caixa_master])
+
+                    console.log(csvArray)
+
                 }
 
                 }
@@ -138,7 +132,7 @@
                 let item = {};
 
 
-                function itemFactory(cod, name, line, novelty, price, image, opt) {
+                function itemFactory(cod, name, line, novelty, price,master, image, opt) {
 
                     let item = {}
                     item.cod = cod
@@ -146,6 +140,7 @@
                     item.line = line
                     item.novelty = novelty
                     item.price = price
+                    item.master = master
                     item.image = image
                     item.opt = opt
 
@@ -302,6 +297,7 @@
                 let line;
                 let novelty;
                 let price;
+                let master;
                 let image;
                 let opt;
 
@@ -324,7 +320,7 @@
                     }
                 }
 
-                for (let i = 0; i < csvArray.length / 5; i++) {
+                for (let i = 0; i < csvArray.length / 6; i++) {
 
                     cod = csvArray[itemsPerPage];
                     itemsPerPage = itemsPerPage + 1;
@@ -340,6 +336,10 @@
 
                     price = csvArray[itemsPerPage];
                     itemsPerPage = itemsPerPage + 1;
+
+                    master = csvArray[itemsPerPage];
+                    itemsPerPage = itemsPerPage + 1;
+
 
                     actualLine = lines[actualLineIndex];
 
@@ -392,9 +392,9 @@
 
 
 
-                    products.push(itemFactory(cod, name, line, novelty, price, image, opt));
+                    products.push(itemFactory(cod, name, line, novelty, price,master, image, opt));
 
-
+                    console.log(products)
 
                 };
 
